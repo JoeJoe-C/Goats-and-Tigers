@@ -109,25 +109,23 @@ public class GameViewer implements MouseListener
         
         // TODO 10 
         // Draw the goats and tigers. (Drawing the shadows is not compulsory)
+        // for loop that goes through length of the locs
         for (int index = 0; index < locs.length; index++) {
-            if (bd.isGoat(index)==true) {
-                int xPos = locs[index][0] * bkSize;
-                int yPos = locs[index][1] * bkSize;
-                sc.drawDisc(xPos,yPos,10,Color.GREEN);
+            if (bd.isGoat(index)==true) { //condition that checks if the goat at index is GOAT
+                int xPos = locs[index][0] * bkSize; //gets the X pixel coordinates
+                int yPos = locs[index][1] * bkSize; //gets the y pixel coordinates
+                sc.drawDisc(xPos,yPos,10,Color.GREEN); //draws a disc from SimpleCanvas
             } 
             else if (bd.isTiger(index)==true) {
                 int xPos = locs[index][0] * bkSize;
                 int yPos = locs[index][1] * bkSize;
-                sc.drawRectangle(xPos - 5, yPos - 5, xPos + 5, yPos + 5, Color.RED);
+                sc.drawRectangle(xPos - 8, yPos - 8, xPos + 5, yPos + 5, Color.RED);
             }
         }
-        // We use simpleCavas drawDisc
-        //for (int
-         
+        
         //sc.drawDisc(x,y,r,color);
         // Display the number of goats
-        
-        
+        sc.drawString("Number of goats: " + rules.getNumGoats(), 5, 15 , Color.WHITE);
     }
     
     /**
