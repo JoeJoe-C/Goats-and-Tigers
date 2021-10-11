@@ -14,7 +14,6 @@
 import java.awt.*;
 import java.awt.event.*; 
 import javax.swing.SwingUtilities;
-import java.util.Arrays;
 
 public class GameViewer implements MouseListener
 {
@@ -110,6 +109,18 @@ public class GameViewer implements MouseListener
         
         // TODO 10 
         // Draw the goats and tigers. (Drawing the shadows is not compulsory)
+        for (int index = 0; index < locs.length; index++) {
+            if (bd.isGoat(index)==true) {
+                int xPos = locs[index][0] * bkSize;
+                int yPos = locs[index][1] * bkSize;
+                sc.drawDisc(xPos,yPos,10,Color.GREEN);
+            } 
+            else if (bd.isTiger(index)==true) {
+                int xPos = locs[index][0] * bkSize;
+                int yPos = locs[index][1] * bkSize;
+                sc.drawRectangle(xPos - 5, yPos - 5, xPos + 5, yPos + 5, Color.RED);
+            }
+        }
         // We use simpleCavas drawDisc
         //for (int
          
@@ -245,7 +256,7 @@ public class GameViewer implements MouseListener
         //testing with print reveals that it already does click   
     }
     
-    public void testdraw(){
+    /*public void testdraw(){
         System.out.println(Arrays.deepToString(locs));
         for (int i = 0; i < locs.length; i++){
             System.out.println(Arrays.toString(locs[i]));
@@ -253,7 +264,7 @@ public class GameViewer implements MouseListener
             
             
     
-    }
+    }*/
     
     public void mouseClicked(MouseEvent e) {}
     public void mouseReleased(MouseEvent e) {}

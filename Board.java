@@ -99,6 +99,19 @@ public class Board
     }
     
     /**
+     * 
+     */
+    public boolean isTiger(int a)
+    {
+        //uses location a with range 0 - 23
+        //checks if board[a] is tiger
+        if (board[a] == Piece.TIGER) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    /**
      * Moves a piece by swaping the contents of a and b
      */
     public void swap(int a, int b)
