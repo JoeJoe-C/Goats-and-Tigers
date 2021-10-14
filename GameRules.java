@@ -103,7 +103,12 @@ public class GameRules
      */    
     public int nearestLoc(int x, int y, int bkSize)
     {
-        // TODO 11        
+        // TODO 11
+        int translatedX = x/bkSize;
+        int translatedY = y/bkSize;
+        
+        
+        
         return -1;    
     }
     

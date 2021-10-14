@@ -246,8 +246,8 @@ public class GameViewer implements MouseListener
          
         
         //System.out.println("");
-        //System.out.println(e.getX() + " this is the x");
-        //System.out.println(e.getY() + " this is the y");
+        System.out.println(e.getX() + " this is the x");
+        System.out.println(e.getY() + " this is the y");
         
         
         
