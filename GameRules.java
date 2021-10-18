@@ -73,6 +73,9 @@ public class GameRules
     public void addGoat(int n)
     {
         //TODO 12
+        if (n == +1){
+            
+        }
        
     }
     
@@ -104,12 +107,22 @@ public class GameRules
     public int nearestLoc(int x, int y, int bkSize)
     {
         // TODO 11
-        int translatedX = x/bkSize;
-        int translatedY = y/bkSize;
+        int limitRange = 15;
         
+        for(int counter = 0; counter < GameViewer.locs.length; counter++){
+            int[] element = GameViewer.locs[counter];
+            int xElement = element[0] * bkSize;
+            int yElement = element[1] * bkSize;
+            
+            if ((x >= (xElement - limitRange)) && (x <= (xElement + limitRange))){
+                if ((y >= (yElement - limitRange)) && (y <= (yElement + limitRange))){
+                    return counter;
+                
+                }
+            }
+        }   
         
-        
-        return -1;    
+        return -1;
     }
     
     /**

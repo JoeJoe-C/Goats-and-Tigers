@@ -144,7 +144,7 @@ public class GameViewer implements MouseListener
             //if the location is VACANT
             bd.setGoat(loc);    //Sets location enum Piece
              
-            rules.addGoat(1);   //adds goat number to count goats from GameRules
+            rules.addGoat(+1);   //adds goat number to count goats from GameRules
             
             this.drawBoard();   //redraws the board
             
@@ -244,10 +244,6 @@ public class GameViewer implements MouseListener
         
         
          
-        
-        //System.out.println("");
-        System.out.println(e.getX() + " this is the x");
-        System.out.println(e.getY() + " this is the y");
         
         
         
