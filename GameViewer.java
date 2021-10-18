@@ -23,7 +23,7 @@ public class GameViewer implements MouseListener
     private SimpleCanvas sc; // an object of SimpleCanvas to draw 
     private GameRules rules; // an object of GameRules
     private Board bd; // an object of Board
-    private AIplayer ai; //an object of AIplayer
+    public AIplayer ai; //an object of AIplayer
     
     // 2D coordinates of valid locations on the board in steps of block size                                  
     public static final int[][] locs = {{1,1},                  {4,1},                  {7,1},
@@ -116,14 +116,16 @@ public class GameViewer implements MouseListener
                 int yPos = locs[index][1] * bkSize; //gets the y pixel coordinates
                 sc.drawDisc(xPos,yPos,10,Color.GREEN); //draws a disc from SimpleCanvas
             } 
-            else if (bd.isTiger(index)==true) {
+            else if (bd.isVacant(index)==true) {
+                continue;
+            }
+            else {
                 int xPos = locs[index][0] * bkSize;
                 int yPos = locs[index][1] * bkSize;
                 sc.drawRectangle(xPos - 8, yPos - 8, xPos + 5, yPos + 5, Color.RED);
             }
         }
         
-        //sc.drawDisc(x,y,r,color);
         // Display the number of goats
         sc.drawString("Number of goats: " + rules.getNumGoats(), 5, 15 , Color.WHITE);
     }
@@ -161,6 +163,9 @@ public class GameViewer implements MouseListener
     public void placeTiger() 
     {   
         //TODO 13
+        ai.placeTiger(bd); //calls placetiger method from AI
+        rules.incrTigers(); //increments through rules
+        drawBoard(); //updates the board 
                
     }
     
@@ -172,7 +177,12 @@ public class GameViewer implements MouseListener
     public void selectGoatMove(int loc) 
     {   
         //TODO 16
-        
+        boolean goatSelected = true; //when method is called, goat is selected
+        while (goatSelected){ //while loop continues until goatSelected is False
+            //we need to change the colour of selected goat at loc
+            //update the board
+            //etc
+        }
     }
     
     /**
@@ -215,17 +225,15 @@ public class GameViewer implements MouseListener
         int mouseY = e.getY();  //gets the y values of the pointed click
         
         int isLegalClick = rules.nearestLoc(mouseX,mouseY,bkSize);  //returns 0 - 23 corresponding to index of coordinates
-        
-        
         //condition for the phase of the game {intial placing phase or movingphase}
         if (rules.isMoveStage() == false)
         {
             if (isLegalClick != -1 && rules.isGoatsTurn() == true)  //conditions for intial phase of the game (placing the goats/tigers)
             {
-                this.placeGoat(isLegalClick);
+                this.placeGoat(isLegalClick); //places goat on legalClick
             } else if(rules.isGoatsTurn() == false)
             {
-                this.placeTiger();
+                this.placeTiger(); //calling the placeTiger for this instance
             }
         } else
         {
@@ -234,32 +242,7 @@ public class GameViewer implements MouseListener
                this.selectGoatMove(isLegalClick);
            }
         }
-        
-        
-        //System.out.println(locs[0][0]);
-        //System.out.println(locs[0]);
-        
-        
-            
-        
-        
-         
-        
-        
-        
-        //testing with print reveals that it already does click   
     }
-    
-    /*public void testdraw(){
-        System.out.println(Arrays.deepToString(locs));
-        for (int i = 0; i < locs.length; i++){
-            System.out.println(Arrays.toString(locs[i]));
-        }
-            
-            
-    
-    }*/
-    
     public void mouseClicked(MouseEvent e) {}
     public void mouseReleased(MouseEvent e) {}
     public void mouseEntered(MouseEvent e) {}

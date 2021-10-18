@@ -22,10 +22,10 @@ public class Board
     public Board()
     {
         // TODO 3
-        board = new Piece[24];
+        board = new Piece[24]; //initialises board object
         for (int i = 0; i<=23; i++)
         {
-            board[i] = Piece.VACANT;
+            board[i] = Piece.VACANT; //sets that all of them are VACANT initially
         }
     }
 
@@ -97,20 +97,6 @@ public class Board
         //changes board[a] into Piece.TIGER
         board[a] = Piece.TIGER;
     }
-    
-    /**
-     * 
-     */
-    public boolean isTiger(int a)
-    {
-        //uses location a with range 0 - 23
-        //checks if board[a] is tiger
-        if (board[a] == Piece.TIGER) {
-            return true;
-        } else {
-            return false;
-        }
-    }
     /**
      * Moves a piece by swaping the contents of a and b
      */
@@ -121,18 +107,6 @@ public class Board
         Piece tempC = board[a]; //temp variable that holds the contents of b
         board[a] = board[b]; // board[a] points to address board[b]
         board[b] = tempC; //board[b] points to same address as tempC which is board[a]
-        
-        //test prints
-        System.out.println(board[a]);
-        System.out.println(board[b]);
-        
     }
-    //Test method
-    /**public void checkPiece(){
-        for (int i = 0; i<=23;i++){
-            System.out.println(this.board[i]);
-        }
-        System.out.print(this.board);
-    }*/
 }
 

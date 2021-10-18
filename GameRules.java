@@ -73,12 +73,16 @@ public class GameRules
     public void addGoat(int n)
     {
         //TODO 12
-        if (n == +1){
-            
+        numGoats = numGoats + (n); //adds to numGoats instance
+        if ((numGoats % 4) == 0){ //conditional to check for every 4 goats place
+            if (numGoats == MAXGOATS){ //once the number of goats reach 12 it moves to moveStage
+                moveStage = true;
+            }
+            else {
+            goatsTurn = false; //this is to switch to tigers turn every 4 goats placed
+            }   
         }
-       
     }
-    
     /**
      * returns number of goats
      */
@@ -93,7 +97,8 @@ public class GameRules
     public void incrTigers()
     {
         //TODO 16
-        
+        numTigers += 1; //adds 1 to numTigers instance variable
+        goatsTurn = true;  //sets goatsTurn to true
     }
         
     /**
@@ -107,22 +112,23 @@ public class GameRules
     public int nearestLoc(int x, int y, int bkSize)
     {
         // TODO 11
-        int limitRange = 15;
+        int limitRange = 15;  // this is the boundary we are setting which is +-15 pixels from x and y positions of the loc
         
-        for(int counter = 0; counter < GameViewer.locs.length; counter++){
-            int[] element = GameViewer.locs[counter];
-            int xElement = element[0] * bkSize;
-            int yElement = element[1] * bkSize;
-            
+        for(int counter = 0; counter < GameViewer.locs.length; counter++){ //iterates through each index of the GameViewer.locs
+            int[] element = GameViewer.locs[counter]; //placeholder array
+            int xElement = element[0] * bkSize; // we translate it back to pixels
+            int yElement = element[1] * bkSize; //translate it back to pixels
+            // condition that checks if the x and y from clicking is -+ the locs
+            // we could do circular radius boundary but more code might be required
             if ((x >= (xElement - limitRange)) && (x <= (xElement + limitRange))){
                 if ((y >= (yElement - limitRange)) && (y <= (yElement + limitRange))){
-                    return counter;
+                    return counter; //returns counter if both x and y are within +-15 pixels
                 
                 }
             }
         }   
         
-        return -1;
+        return -1; //otherwise -1 is returned
     }
     
     /**

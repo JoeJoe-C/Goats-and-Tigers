@@ -14,7 +14,7 @@ public class AIplayer
 {
     private Random rn; // for random tiger or location selection
     private GameRules rul; // an instance of GameRules to check for legal moves
-    private int[] tigerLocs; // location of tigers for convenience 
+    public int[] tigerLocs; // location of tigers for convenience 
     private int ntigers; // number of tigers placed
     
     /**
@@ -24,7 +24,10 @@ public class AIplayer
     public AIplayer()
     {
         // TODO 14
-        
+        rn = new Random();
+        rul = new GameRules();
+        tigerLocs = new int[23];  //this will create an empty Array of 0's
+        ntigers = 0;  //beginning of game number of tigers is 0
     }
 
     /**
@@ -34,7 +37,21 @@ public class AIplayer
     public void placeTiger(Board bd)
     {
         //TODO 15
+        //using a while loop will allow it to appear more random than a for loop
+        boolean isPlaced = false;  //condition to break the loop
         
+        while (!isPlaced){ //while loop to keep iterating until isPlaced is true
+            int indexNumber = rn.nextInt(24); //generates a random in from 0 - 23
+            if (bd.isVacant(indexNumber) == true) { //if vacant place tiger
+                bd.setTiger(indexNumber); //calls setTiger method from board
+                tigerLocs[indexNumber] = 1;  //in the index it will be 1
+                isPlaced = true; //break the loop and end method
+            }
+            else {
+                continue; //if not vacant skip iteration
+            }
+        }
+        ntigers += 1; //increment the number of tigers by 1
     }
     
     /**
