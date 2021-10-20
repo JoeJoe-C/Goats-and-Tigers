@@ -178,12 +178,25 @@ public class GameViewer implements MouseListener
     {   
         //TODO 16
         boolean goatSelected = true; //when method is called, goat is selected
-        while (goatSelected){ //while loop continues until goatSelected is False
-            //we need to change the colour of selected goat at loc
-            //update the board
-            //etc
-        }
+        //while (goatSelected) //while loop continues until goatSelected is False
+          //{ sc.colour
+            
+            
+            
+            
+           //}
+        
+        if (bd.isVacant(loc) == true)
+            {
+            //calls board class to see if position is vacant
+            //if the location is VACANT selected goat moves
+            rules.isMoveStage();
+        
+            }
+            
+        drawBoard(); // updates board
     }
+
     
     /**
      * Make the user selected goat move only if legal otherwise set the destination to -1 (invalid).
@@ -194,8 +207,11 @@ public class GameViewer implements MouseListener
     {   
         //TODO 18        
         
+        //if (goatSelected){
+            
+        
+    
     }
- 
     /**
      * Call AIplayer to make its move. Update and draw the board after the move.
      * If Tigers cannot move, display "Goats Win!".

@@ -75,6 +75,9 @@ public class AIplayer
     {
         //TODO 21
         return false; 
+        
+        
+        
     }
     
     /**
