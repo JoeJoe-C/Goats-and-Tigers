@@ -177,7 +177,6 @@ public class GameViewer implements MouseListener
     public void selectGoatMove(int loc) 
     {   
         //TODO 16
-        
         if ((mov[0] == -1) && bd.isGoat(loc)) { //checks if mov[0] is default
             int[] getPosition = locs[loc]; //this is all info to drawDisc in different colour
             int xPosition = getPosition[0] * bkSize;
@@ -199,6 +198,7 @@ public class GameViewer implements MouseListener
             }
         }  
     }
+
     
     /**
      * Make the user selected goat move only if legal otherwise set the destination to -1 (invalid).
@@ -222,7 +222,6 @@ public class GameViewer implements MouseListener
             mov[1] = -1;
         }
     }
- 
     /**
      * Call AIplayer to make its move. Update and draw the board after the move.
      * If Tigers cannot move, display "Goats Win!".

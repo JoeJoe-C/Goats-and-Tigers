@@ -74,6 +74,7 @@ public class AIplayer
     private boolean simpleMove(Board bd)
     {
         //TODO 21
+
         boolean moved = false;
         int validation = 0; //if 0 no possible moves, if greater than 1 possible moves
         for (int i = 0 ; i < tigerLocs.length; i++) {
