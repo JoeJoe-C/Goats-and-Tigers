@@ -26,8 +26,8 @@ public class AIplayer
         // TODO 14
         rn = new Random();
         rul = new GameRules();
-        tigerLocs = new int[23];  //this will create an empty Array of 0's
-        ntigers = 0;  //beginning of game number of tigers is 0
+        tigerLocs = new int[3];  //this will create an empty Array of 0's
+        ntigers = 0;  //beginnin of game number of tigers is 0
     }
 
     /**
@@ -39,21 +39,21 @@ public class AIplayer
         //TODO 15
         //using a while loop will allow it to appear more random than a for loop
         boolean isPlaced = false;  //condition to break the loop
-        
-        while (!isPlaced){ //while loop to keep iterating until isPlaced is true
-            int indexNumber = rn.nextInt(24); //generates a random in from 0 - 23
-            if (bd.isVacant(indexNumber) == true) { //if vacant place tiger
-                bd.setTiger(indexNumber); //calls setTiger method from board
-                tigerLocs[indexNumber] = 1;  //in the index it will be 1
-                isPlaced = true; //break the loop and end method
+        for (int index = 0; index < tigerLocs.length ; index++){
+            while (!isPlaced){ //while loop to keep iterating until isPlaced is true
+                int indexNumber = rn.nextInt(24); //generates a random in from 0 - 23
+                if (bd.isVacant(indexNumber) == true) { //if vacant place tiger
+                    bd.setTiger(indexNumber); //calls setTiger method from board
+                    tigerLocs[index] = indexNumber;  //in the index it will be 1
+                    isPlaced = true; //break the loop and end method
+                }
+                else {
+                    continue; //if not vacant skip iteration
+                }
             }
-            else {
-                continue; //if not vacant skip iteration
-            }
+            ntigers += 1; //increment the number of tigers by 1
         }
-        ntigers += 1; //increment the number of tigers by 1
     }
-    
     /**
      * If possible to eat a goat, must eat and return 1
      * If cannot eat any goat, make a move and return 0
@@ -74,8 +74,34 @@ public class AIplayer
     private boolean simpleMove(Board bd)
     {
         //TODO 21
-        return false; 
+        boolean moved = false;
+        int validation = 0; //if 0 no possible moves, if greater than 1 possible moves
+        for (int i = 0 ; i < tigerLocs.length; i++) {
+            int currentPosition = tigerLocs[i];
+            for (int legMoves : rul.legalMoves[currentPosition]){
+                if (rul.isLegalMove(currentPosition, legMoves)){
+                       validation += 1;
+                }
+            }
+        }
+        
+        if (validation >=1){
+            while (!moved) { //because we don't know how many times we need to verify
+                int randomindex = rn.nextInt(3);//random integer from 0 - 2
+                int tigerPosition = tigerLocs[randomindex];
+                int[] possibleMoves = rul.legalMoves[tigerPosition]; 
+                for(int moves : possibleMoves) {
+                    if (bd.isVacant(moves)) {
+                    bd.swap(tigerPosition, moves);
+                    tigerLocs[randomindex] = moves;
+                    return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
+    
     
     /**
      * If possible, eat a goat and return true otherwise return false.
@@ -85,7 +111,8 @@ public class AIplayer
      */
     private boolean eatGoat(Board bd)
     {
-        //TODO 22        
+        //TODO 22
+        //if (rul.canEatGoat(
         return false;
     }
    

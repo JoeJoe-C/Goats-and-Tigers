@@ -73,15 +73,16 @@ public class GameRules
     public void addGoat(int n)
     {
         //TODO 12
-        numGoats = numGoats + (n); //adds to numGoats instance
-        if ((numGoats % 4) == 0){ //conditional to check for every 4 goats place
-            if (numGoats == MAXGOATS){ //once the number of goats reach 12 it moves to moveStage
-                moveStage = true;
+        numGoats += n; //adds to numGoats instance
+        
+        if (numGoats % 4 ==0) { // if num goats is 4/8/12
+            if (numGoats < MAXGOATS){ // if numGoats is < 12
+                 goatsTurn = false;// every 4 goats placed tigers turn
+            } else if (numGoats == MAXGOATS) { // when goats is maxGoats
+                moveStage = true; // it goes to moveStage
             }
-            else {
-            goatsTurn = false; //this is to switch to tigers turn every 4 goats placed
-            }   
         }
+        
     }
     /**
      * returns number of goats
@@ -114,15 +115,15 @@ public class GameRules
         // TODO 11
         int limitRange = 15;  // this is the boundary we are setting which is +-15 pixels from x and y positions of the loc
         
-        for(int counter = 0; counter < GameViewer.locs.length; counter++){ //iterates through each index of the GameViewer.locs
-            int[] element = GameViewer.locs[counter]; //placeholder array
+        for(int index = 0; index < GameViewer.locs.length; index++){ //iterates through each index of the GameViewer.locs
+            int[] element = GameViewer.locs[index]; //placeholder array
             int xElement = element[0] * bkSize; // we translate it back to pixels
             int yElement = element[1] * bkSize; //translate it back to pixels
             // condition that checks if the x and y from clicking is -+ the locs
             // we could do circular radius boundary but more code might be required
             if ((x >= (xElement - limitRange)) && (x <= (xElement + limitRange))){
                 if ((y >= (yElement - limitRange)) && (y <= (yElement + limitRange))){
-                    return counter; //returns counter if both x and y are within +-15 pixels
+                    return index; //returns counter if both x and y are within +-15 pixels
                 
                 }
             }
@@ -139,7 +140,16 @@ public class GameRules
      */
     public boolean isLegalMove(int a, int b)
     {
-        //TODO 19        
+        //TODO 19
+        //a is the source position
+        //b is the destination
+        int[] legalMovesList = legalMoves[a];
+        for (int positions : legalMovesList){
+            if (positions == b){
+                return true;
+            }
+        }
+        
         return false;        
     }
     

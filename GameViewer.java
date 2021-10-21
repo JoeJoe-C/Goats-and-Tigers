@@ -146,7 +146,7 @@ public class GameViewer implements MouseListener
             //if the location is VACANT
             bd.setGoat(loc);    //Sets location enum Piece
              
-            rules.addGoat(+1);   //adds goat number to count goats from GameRules
+            rules.addGoat(1);   //adds goat number to count goats from GameRules
             
             this.drawBoard();   //redraws the board
             
@@ -177,12 +177,27 @@ public class GameViewer implements MouseListener
     public void selectGoatMove(int loc) 
     {   
         //TODO 16
-        boolean goatSelected = true; //when method is called, goat is selected
-        while (goatSelected){ //while loop continues until goatSelected is False
-            //we need to change the colour of selected goat at loc
-            //update the board
-            //etc
-        }
+        
+        if ((mov[0] == -1) && bd.isGoat(loc)) { //checks if mov[0] is default
+            int[] getPosition = locs[loc]; //this is all info to drawDisc in different colour
+            int xPosition = getPosition[0] * bkSize;
+            int yPosition = getPosition[1] * bkSize;
+            sc.drawDisc(xPosition, yPosition, 10, Color.WHITE);
+            mov[0] = loc; //sets the mov[0] with the loc input
+        } else if ((mov[0] != -1) && (mov[1] == -1)) { // if mov[0] is already not the default -1, we move on to the destination
+            mov[1] = loc; //sets the destination mov[1] to loc
+            if (mov[0] == mov[1]){ // checks if it is clicking the same position
+                int [] getPosition = locs[loc]; //for info to get the data to change back to original colour
+                int xPosition = getPosition[0] * bkSize;
+                int yPosition = getPosition[1] * bkSize;
+                sc.drawDisc(xPosition, yPosition, 10, Color.GREEN);
+                mov[0] = -1; //resets to default
+                mov[1] = -1; //resets to default
+            }
+            else if (bd.isVacant(loc)) { //checks if the clicked area is vacant
+                this.moveGoat(); //if vacant call moveGoat()
+            }
+        }  
     }
     
     /**
@@ -192,8 +207,20 @@ public class GameViewer implements MouseListener
      */
     public void moveGoat() 
     {   
-        //TODO 18        
-        
+        //TODO 18
+        int source = mov[0]; //gets the source location
+        int destination = mov[1]; //gets the destination location
+        if (rules.isLegalMove(source, destination)) { //calls isLegalMove from gameRules if true proceed
+            bd.swap(source, destination); //swaps the vacant with goat
+            this.drawBoard(); //updates the board
+            this.tigersMove(); //now its tigersMove
+            mov[0] = -1; //resets the mov to default
+            mov[1] = -1;
+        }
+        else { // if not legal move, reset to default
+            mov[0] = -1;
+            mov[1] = -1;
+        }
     }
  
     /**
@@ -205,7 +232,13 @@ public class GameViewer implements MouseListener
     public void tigersMove()
     {
         //TODO 20
-                                
+        int moveResult = ai.makeAmove(bd);
+        this.drawBoard();
+        if (moveResult == -1) { // if the tiger cant move
+            sc.drawString("Goats Win!", 5, 30, Color.GREEN);
+        } else if (rules.getNumGoats() < 6) {
+            sc.drawString("Tigers Win!", 5, 30, Color.RED);
+        }                        
     }
         
     /**
@@ -239,7 +272,8 @@ public class GameViewer implements MouseListener
         {
            if (isLegalClick != -1 && rules.isGoatsTurn() == true) //inf it is move phase, it will select goat from mouseclick
            {
-               this.selectGoatMove(isLegalClick);
+                   this.selectGoatMove(isLegalClick);
+               
            }
         }
     }
